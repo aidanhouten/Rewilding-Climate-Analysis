@@ -232,6 +232,15 @@ sites_df <- sites_df %>%
 ```
 
 ``` r
+sites_df$raster_path <- unlist(lapply(seq_len(nrow(sites_df)), function(i) {
+  
+  vocc_raster <- sites_df$min_temp_velo_stack[[i]][[1]]
+  fpath <- file.path("~/UCL 2024/BIOS0034/R/Output", paste0(sites_df$site[i], ".tif"))
+  writeRaster(vocc_raster, fpath, overwrite = TRUE)
+  fpath
+  
+}))
+
 sites_df_export <- sites_df %>% 
   subset(select = -c(min_temp_velo_stack))
 
