@@ -235,7 +235,7 @@ sites_df <- sites_df %>%
 sites_df_export <- sites_df %>% 
   subset(select = -c(min_temp_velo_stack))
 
-write.csv(sites_df_export, "sites_df.csv")
+write.csv(sites_df_export, "~/UCL 2024/BIOS0034/R/Output/sites_df.csv", row.names=FALSE)
 ```
 
 =================================================================
