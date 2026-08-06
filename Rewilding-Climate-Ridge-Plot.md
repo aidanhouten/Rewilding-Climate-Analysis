@@ -196,21 +196,6 @@ min_max_ridge_plot <- (min_ridge_plot + max_ridge_plot) + plot_layout(axes = "co
 
 whole_ridge_plot <- INDVI_ridge_plot / min_max_ridge_plot + plot_layout(axis_titles = "collect_x")
 
-whole_ridge_plot
-```
-
-    ## Warning: Removed 21947 rows containing non-finite outside the scale range
-    ## (`stat_density_ridges()`).
-
-    ## Warning: Removed 25150 rows containing non-finite outside the scale range
-    ## (`stat_density_ridges()`).
-
-    ## Warning: Removed 20672 rows containing non-finite outside the scale range
-    ## (`stat_density_ridges()`).
-
-![](Rewilding-Climate-Ridge-Plot_files/figure-gfm/Plotting-1.png)<!-- -->
-
-``` r
 ggsave(filename = "~/UCL 2024/BIOS0034/R/Output/ridge_plot.png", plot = whole_ridge_plot, device = "png", dpi = 600, width = 10, height = 8)
 ```
 
