@@ -94,15 +94,16 @@ theme_map2 <- theme(
     # # plot margin
     # plot.margin = unit(c(2, 0, 0, 0), "points")
     )
+
+output_dir <- "~/UCL 2024/BIOS0034/R/Output"
+min_temp_dir <- "~/UCL 2024/BIOS0034/R/Output/Temp Climate Stacks/Temperature/Min"
+ca_rast <- rast("~/UCL 2024/BIOS0034/R/Data/2026 Rasters/GEE_MK_250m/MK_Stacked_250m_Central_Apennines.tif")
+ca_vect <- vect("~/UCL 2024/BIOS0034/Sites/Central Apennines/CentrApennineShp.shp")
+world <- read_sf("~/UCL 2024/BIOS0034/Sites/MAP OF SITES/Data/ne_10m_admin_0_countries.shp")
 ```
 
 ``` r
-sites_df_panel <- read.csv("~/UCL 2024/BIOS0034/R/Output/sites_df.csv")
-
-ca_rast <- rast("~/UCL 2024/BIOS0034/R/Data/2026 Rasters/GEE_MK_250m/MK_Stacked_250m_Central_Apennines.tif")
-ca_vect <- vect("~/UCL 2024/BIOS0034/Sites/Central Apennines/CentrApennineShp.shp")
-
-world <- read_sf("~/UCL 2024/BIOS0034/Sites/MAP OF SITES/Data/ne_10m_admin_0_countries.shp")
+sites_df_panel <- read.csv(file.path(output_dir, "sites_df.csv"))
 
 coords_y <- c(
   57.85, 50.98, 41.96, 51.47, 56.95, 52.51, 57.21, 40.63, 51.22,
@@ -177,8 +178,7 @@ ca_years <- ca_start_year:2022
 all_rasters <- lapply(ca_years, function(year) {
   
   r <- rast(paste0(
-    "~/UCL 2024/BIOS0034/R/Output/Temp Climate Stacks/Temperature/Min/",
-    ca_site_name, "_Min_", year, ".tif"
+    min_temp_dir, "/", ca_site_name, "_Min_", year, ".tif"
   ))
   
   as(r, "Raster")
@@ -360,5 +360,5 @@ full_ca_panel_plot <- map_of_sites + ca_inset_multi_panel + ca_time_multi_panel 
 
 # full_ca_panel_plot <- (map_of_sites3 | ca_inset_multi_panel) / ((ca_INDVI_time_plot / ca_temp_time_plot + plot_layout(axis_titles = "collect_x")) | ca_velo_plot)
 
-ggsave(filename = "~/UCL 2024/BIOS0034/R/Output/centr_ap_example_panel_plot.png", plot = full_ca_panel_plot, device = "png", dpi = 600, width = 20, height = 20)
+ggsave(filename = file.path(output_dir, "centr_ap_example_panel_plot.png"), plot = full_ca_panel_plot, device = "png", dpi = 600, width = 20, height = 20)
 ```
