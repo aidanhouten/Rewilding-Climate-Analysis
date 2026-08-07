@@ -35,12 +35,13 @@ theme_rewild <- theme(
     axis.ticks = element_line(linewidth = 0.75),
     plot.margin = margin(12,12,12,12, "pt")
     )
+
+output_dir <- "~/UCL 2024/BIOS0034/R/Output"
+highres_paths <- list.files(path = "~/UCL 2024/BIOS0034/R/Data/2026 Rasters/GEE_MK_250m", full.names = TRUE, pattern = "\\.tif$")
 ```
 
 ``` r
-sites_df <- read.csv("~/UCL 2024/BIOS0034/R/Output/sites_df.csv")
-
-highres_paths <- list.files(path = "~/UCL 2024/BIOS0034/R/Data/2026 Rasters/GEE_MK_250m", full.names = TRUE, pattern = "\\.tif$")
+sites_df <- read.csv(file.path(output_dir, "sites_df.csv"))
 
 # Function
 sens_slope_raster_function <- function(file_path) {
@@ -139,5 +140,5 @@ min_max_ridge_plot <- (min_ridge_plot + max_ridge_plot) + plot_layout(axes = "co
 
 whole_ridge_plot <- INDVI_ridge_plot / min_max_ridge_plot + plot_layout(axis_titles = "collect_x")
 
-ggsave(filename = "ridge_plot.png", plot = whole_ridge_plot, device = "png", dpi = 600, width = 10, height = 8)
+ggsave(filename = file.path(output_dir, "ridge_plot.png"), plot = whole_ridge_plot, device = "png", dpi = 600, width = 10, height = 8)
 ```
