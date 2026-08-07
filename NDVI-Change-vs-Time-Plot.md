@@ -32,10 +32,12 @@ theme_rewild <- theme(
     axis.ticks = element_line(linewidth = 0.75),
     plot.margin = margin(12,12,12,12, "pt")
     )
+
+output_dir <- "~/UCL 2024/BIOS0034/R/Output"
 ```
 
 ``` r
-sites_df <- read.csv("~/UCL 2024/BIOS0034/R/Output/sites_df.csv")
+sites_df <- read.csv(file.path(output_dir, "sites_df.csv"))
 
 sites_df$site[sites_df$site == "Border_Meuse"] <- "Border Meuse"
 sites_df$site[sites_df$site == "Central_Apennines"] <- "Central Apennines"
@@ -338,6 +340,6 @@ maxNDVI_increase_plot
 ``` r
 INDVI_maxNDVI_plot <- INDVI_increase_plot / maxNDVI_increase_plot + plot_layout(axes = "collect")
 
-ggsave(filename = "INDVI_maxNDVI_plot.png", plot = INDVI_maxNDVI_plot, device = "png", dpi = 600, width = 6, height = 8)
-ggsave(filename = "minNDVI_plot.png", plot = minNDVI_increase_plot, device = "png", dpi = 600, width = 8, height = 5)
+ggsave(filename = file.path(output_dir, "INDVI_maxNDVI_plot.png"), plot = INDVI_maxNDVI_plot, device = "png", dpi = 600, width = 6, height = 8)
+ggsave(filename = file.path(output_dir, "minNDVI_plot.png"), plot = minNDVI_increase_plot, device = "png", dpi = 600, width = 8, height = 5)
 ```
