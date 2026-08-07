@@ -37,6 +37,7 @@ output_dir <- "~/UCL 2024/BIOS0034/R/Output"
 ``` r
 sites_df <- read.csv(file.path(output_dir, "sites_df.csv"))
 
+
 sites_df$site[sites_df$site == "Border_Meuse"] <- "Border Meuse"
 sites_df$site[sites_df$site == "Central_Apennines"] <- "Central Apennines"
 sites_df$site[sites_df$site == "Chernobyl_Exclusion_Zone"] <- "Chornobyl Exclusion Zone"
