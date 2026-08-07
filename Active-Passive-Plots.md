@@ -30,13 +30,13 @@ theme_rewild <- theme(
     axis.ticks = element_line(linewidth = 0.75),
     plot.margin = margin(12,12,12,12, "pt")
     )
+
+output_dir <- "~/UCL 2024/BIOS0034/R/Output"
 ```
 
 ``` r
-sites_df <- read.csv("~/UCL 2024/BIOS0034/R/Output/sites_df.csv")
-```
+sites_df <- read.csv(file.path(output_dir, "sites_df.csv"))
 
-``` r
 sites_df$site[sites_df$site == "Border_Meuse"] <- "Border Meuse"
 sites_df$site[sites_df$site == "Central_Apennines"] <- "Central Apennines"
 sites_df$site[sites_df$site == "Chernobyl_Exclusion_Zone"] <- "Chornobyl Exclusion Zone"
@@ -94,5 +94,5 @@ area_time_plot <-
   labs(y = bquote("Project area (Km"^2~")"), x = "Number of years since rewilding start year", fill = "Rewilding\nstrategy") +
   theme_rewild
 
-ggsave(filename = "area_time_plot.png", plot = area_time_plot, device = "png", dpi = 600, width = 10, height = 8)
+ggsave(filename = file.path(output_dir, "area_time_plot.png"), plot = area_time_plot, device = "png", dpi = 600, width = 10, height = 8)
 ```
