@@ -24,6 +24,11 @@ library(NoSleepR)
 library(marginaleffects)
 library(stringr)
 library(data.table)
+
+output_dir <- "~/UCL 2024/BIOS0034/R/Output"
+min_temp_dir <- "~/UCL 2024/BIOS0034/R/Output/Temp Climate Stacks/Temperature/Min"
+highres_paths <- list.files(path = "~/UCL 2024/BIOS0034/R/Data/2026 Rasters/GEE_MK_250m", full.names = TRUE, pattern = "\\.tif$")
+lowres_paths <- list.files(path = "~/UCL 2024/BIOS0034/R/Data/2026 Rasters/GEE_MK_1000m", full.names = TRUE, pattern = "\\.tif$")
 ```
 
 ``` r
@@ -45,9 +50,6 @@ sites_df$years_rewilding <- 2022 - sites_df$start_year
 ```
 
 ``` r
-highres_paths <- list.files(path = "~/UCL 2024/BIOS0034/R/Data/2026 Rasters/GEE_MK_250m", full.names = TRUE, pattern = "\\.tif$")
-lowres_paths <- list.files(path = "~/UCL 2024/BIOS0034/R/Data/2026 Rasters/GEE_MK_1000m", full.names = TRUE, pattern = "\\.tif$")
-
 # below function generates a raster stack for each site and calculates the proportion of pixels showing a statistically significant positive NDVI trend
 # for each of INDVI, minNDVI and max NDVI
 
@@ -124,7 +126,7 @@ with_nosleep({
   
   terraOptions(memfrac = 0.6)
   
-  setwd("~/UCL 2024/BIOS0034/R/Output/Temp Climate Stacks/Temperature/Min")
+  setwd(min_temp_dir)
   
   lapply(seq_len(nrow(sites_df)), function(i) {
     
@@ -167,7 +169,7 @@ with_nosleep({
 # VoCC package used to calculated velocity of climate change for each site
 # Stored as one VoCC raster for each site
 
-setwd("~/UCL 2024/BIOS0034/R/Output/Temp Climate Stacks/Temperature/Min")
+setwd(min_temp_dir)
 
 sites_df$min_temp_velo_stack <- lapply(seq_len(nrow(sites_df)), function(i) {
   
@@ -235,7 +237,7 @@ sites_df <- sites_df %>%
 sites_df$raster_path <- unlist(lapply(seq_len(nrow(sites_df)), function(i) {
   
   vocc_raster <- sites_df$min_temp_velo_stack[[i]][[1]]
-  fpath <- file.path("~/UCL 2024/BIOS0034/R/Output", paste0(sites_df$site[i], ".tif"))
+  fpath <- file.path(output_dir, paste0(sites_df$site[i], ".tif"))
   writeRaster(vocc_raster, fpath, overwrite = TRUE)
   fpath
   
@@ -244,7 +246,7 @@ sites_df$raster_path <- unlist(lapply(seq_len(nrow(sites_df)), function(i) {
 sites_df_export <- sites_df %>% 
   subset(select = -c(min_temp_velo_stack))
 
-write.csv(sites_df_export, "~/UCL 2024/BIOS0034/R/Output/sites_df.csv", row.names=FALSE)
+write.csv(sites_df_export, file.path(output_dir, "sites_df.csv"), row.names=FALSE)
 ```
 
 =================================================================
@@ -267,7 +269,7 @@ print(INDVI_increase_dredge_250)
 
 # exporting dredge as CSV to use Akaike weight statistics
 INDVI_dredge_250_df <- as.data.frame(INDVI_increase_dredge_250)
-write.csv(INDVI_dredge_250_df, file = "INDVI_250_dredge.csv")
+write.csv(INDVI_dredge_250_df, file = file.path(output_dir, "INDVI_250_dredge.csv"))
 
 best_INDVI_increase_250 <- betareg(
   INDVI.increase_250m ~ years_rewilding,
@@ -296,7 +298,7 @@ print(minNDVI_increase_dredge_250)
 
 # exporting dredge as CSV to use Akaike weight statistics
 minNDVI_dredge_250_df <- as.data.frame(minNDVI_increase_dredge_250)
-write.csv(minNDVI_dredge_250_df, file = "minNDVI_250_dredge.csv")
+write.csv(minNDVI_dredge_250_df, file = file.path(output_dir, "minNDVI_250_dredge.csv"))
 
 best_minNDVI_increase_250 <- betareg(
   minNDVI.increase_250m ~ years_rewilding + min_temp_mean,
@@ -328,7 +330,7 @@ summary(avg_maxNDVI_increase_250)
 
 # exporting dredge as CSV to use Akaike weight statistics
 maxNDVI_dredge_250_df <- as.data.frame(maxNDVI_increase_dredge_250)
-write.csv(maxNDVI_dredge_250_df, file = "maxNDVI_250_dredge.csv")
+write.csv(maxNDVI_dredge_250_df, file = file.path(output_dir, "maxNDVI_250_dredge.csv"))
 
 best_maxNDVI_increase_250 <- betareg(
   maxNDVI.increase_250m ~ years_rewilding,
