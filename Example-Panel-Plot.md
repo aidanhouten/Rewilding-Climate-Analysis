@@ -37,9 +37,9 @@ theme_rewild2 <- theme(
     #axis & border
     panel.border = element_rect(linewidth = 0.75, fill = NA),
     # axis.line = element_line(size = 0.75),
-    axis.ticks = element_line(linewidth = 0.75)
+    axis.ticks = element_line(linewidth = 0.75),
     # # plot margin
-    # plot.margin = unit(c(2, 0, 0, 0), "points")
+    plot.margin = unit(c(5.5, 0, 0, 0), "points")
     )
 
 # creating a theme to be applied to all plots
@@ -64,9 +64,9 @@ theme_velo2 <- theme(
     #axis & border
     panel.border = element_rect(linewidth = 0.75, fill = NA),
     axis.line = element_blank(),
-    axis.ticks = element_line(linewidth = 0.75)
+    axis.ticks = element_line(linewidth = 0.75),
     # # plot margin
-    # plot.margin = unit(c(2, 0, 0, 0), "points")
+    plot.margin = unit(c(5.5, 5.5, 5.5, 5.5), "points")
     )
 
 # creating a theme to be applied to all plots
@@ -90,9 +90,9 @@ theme_map2 <- theme(
     # axis & border
     panel.border = element_rect(color = "black", fill = NA),
     axis.line = element_blank(),
-    axis.ticks = element_blank()
+    axis.ticks = element_blank(),
     # # plot margin
-    # plot.margin = unit(c(2, 0, 0, 0), "points")
+    plot.margin = unit(c(5.5, 5.5, 5.5, 5.5), "points")
     )
 
 output_dir <- "~/UCL 2024/BIOS0034/R/Output"
@@ -160,7 +160,7 @@ ca_INDVI_time_plot <-
   ggplot(ca_INDVI_yearly_df, aes(x = year, y = value, group = pixel_id)) +
   geom_line(alpha = 0.05) +
   geom_line(data = ca_INDVI_yearly_mean, aes(x = year, y = value, group = pixel_id), col = "gold", size = 1) +
-  labs(x = "Year", y = "\nINDVI") +
+  labs(x = "Year", y = "\n\nINDVI") +
   theme_rewild2
 ```
 
@@ -356,9 +356,11 @@ ca_inset_multi_panel <- ca_INDVI_mk_plot + ca_INDVI_sen_plot + ca_INDVI_p_plot +
 
 ca_time_multi_panel <- ca_INDVI_time_plot / ca_temp_time_plot + plot_layout(axis_titles = "collect_x")
 
-full_ca_panel_plot <- map_of_sites + ca_inset_multi_panel + ca_time_multi_panel + ca_velo_plot
+full_ca_panel_plot <- map_of_sites + ca_inset_multi_panel + ca_time_multi_panel + ca_velo_plot +
+  plot_annotation(tag_levels = "a", tag_suffix = ")") & 
+  theme(plot.tag = element_text(size = 14))
 
 # full_ca_panel_plot <- (map_of_sites3 | ca_inset_multi_panel) / ((ca_INDVI_time_plot / ca_temp_time_plot + plot_layout(axis_titles = "collect_x")) | ca_velo_plot)
 
-ggsave(filename = file.path(output_dir, "centr_ap_example_panel_plot.png"), plot = full_ca_panel_plot, device = "png", dpi = 600, width = 20, height = 20)
+ggsave(filename = file.path(output_dir, "centr_ap_example_panel_plot.png"), plot = full_ca_panel_plot, device = "png", dpi = 600, width = 20, height = 15)
 ```
