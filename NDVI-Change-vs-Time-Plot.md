@@ -48,7 +48,7 @@ sites_df$site[sites_df$site == "Greater_Coa_Valley"] <- "Greater Côa Valley"
 sites_df$site[sites_df$site == "Kempen_Broek"] <- "Kempen~Broek"
 sites_df$site[sites_df$site == "Naliboki_Forest"] <- "Naliboki Forest"
 sites_df$site[sites_df$site == "Southern_Carpathians"] <- "Southern Carpathians"
-sites_df$site[sites_df$site == "Swiss_National_Park"] <- "Swiss National Park"
+sites_df$site[sites_df$site == "Swiss_National_Park"] <- "The Swiss\nNational Park"
 sites_df$site[sites_df$site == "Tarutino_Steppe"] <- "Tarutino Steppe"
 sites_df$site[sites_df$site == "Vanatori_Neamt_Nature_Park"] <- "Vânători-Neamț Nature Park"
 sites_df$site[sites_df$site == "Velebit_Mountains"] <- "Velebit Mountains"
@@ -137,7 +137,7 @@ INDVI_increase_plot <- ggplot(sites_df) +
   scale_x_continuous(limits = c(9, 23), breaks = c(10, 15, 20)) +
   scale_y_continuous(limits = c(-0.02, 1), breaks = c(0, 0.25, 0.50, 0.75, 1.00)) +
   labs(
-    x = "Number of years of MODIS-observed rewilding",
+    x = "Number of years of MODIS era rewilding",
     y = "Proportion of all pixels\nthat are significantly increasing"
   ) +
   annotate("text", x = 22, y = 0.99, label = expression(R^2 == 0.3409)) +
@@ -230,7 +230,7 @@ minNDVI_increase_plot <- ggplot(sites_df) +
   scale_y_continuous(limits = c(-0.02, 1), breaks = c(0, 0.25, 0.50, 0.75, 1.00)) +
   scale_color_viridis_c() +
   labs(
-    x = "Number of years of MODIS-observed rewilding",
+    x = "Number of years of MODIS era rewilding",
     y = "Proportion of all pixels\nthat are significantly increasing",
     col = "Temperature\nVelocity"
   ) +
@@ -325,7 +325,7 @@ maxNDVI_increase_plot <- ggplot(sites_df) +
   scale_x_continuous(limits = c(9, 23), breaks = c(10, 15, 20)) +
   scale_y_continuous(limits = c(-0.02, 1), breaks = c(0, 0.25, 0.50, 0.75, 1.00)) +
   labs(
-    x = "Number of years of MODIS-observed rewilding",
+    x = "Number of years of MODIS era rewilding",
     y = "Proportion of all pixels\nthat are significantly increasing"
   ) +
   annotate("text", x = 22, y = 0.99, label = expression(R^2 == 0.2358)) +
