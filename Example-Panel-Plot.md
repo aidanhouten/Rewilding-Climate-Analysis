@@ -66,7 +66,7 @@ theme_velo2 <- theme(
     axis.line = element_blank(),
     axis.ticks = element_line(linewidth = 0.75),
     # # plot margin
-    plot.margin = unit(c(5.5, 5.5, 5.5, 5.5), "points")
+    plot.margin = unit(c(5.5, 5.5, 5.5, 11), "points")
     )
 
 # creating a theme to be applied to all plots
@@ -92,7 +92,7 @@ theme_map2 <- theme(
     axis.line = element_blank(),
     axis.ticks = element_blank(),
     # # plot margin
-    plot.margin = unit(c(5.5, 5.5, 5.5, 5.5), "points")
+    plot.margin = unit(c(5.5, 11, 5.5, 5.5), "points")
     )
 
 output_dir <- "~/UCL 2024/BIOS0034/R/Output"
