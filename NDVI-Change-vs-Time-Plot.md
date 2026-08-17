@@ -232,7 +232,7 @@ minNDVI_increase_plot <- ggplot(sites_df) +
   labs(
     x = "Number of years of MODIS era rewilding",
     y = "Proportion of all pixels\nthat are significantly increasing",
-    col = "Temperature\nVelocity"
+    col = "Temperature\nvelocity (Km/year)"
   ) +
   annotate("text", x = 22, y = 0.99, label = expression(R^2 == "0.5099")) +
   theme_rewild
